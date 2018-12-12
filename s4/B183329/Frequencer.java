@@ -36,7 +36,7 @@ public class Frequencer implements FrequencerInterface{
     }
 
     // I know that here is a potential problem in the declaration.
-    public int subByteFrequency(int start, int length) { 
+    public int subByteFrequency(int start, int length) {
 	// Not yet, but it is not currently used by anyone.
 	return -1;
     }

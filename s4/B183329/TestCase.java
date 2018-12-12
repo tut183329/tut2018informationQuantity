@@ -34,13 +34,20 @@ public class TestCase {
 	try {
 	    FrequencerInterface  myObject;
 	    int freq;
-	    System.out.println("checking s4.B183329.Frequencer");
+	    System.out.println("\nchecking s4.B183329.Frequencer");
 	    myObject = new s4.B183329.Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
 	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+        
+        FrequencerInterface  myObject_2;
+        System.out.println("\nTARGET is not set > -1 ?");
+        freq = myObject.frequency();
+        System.out.println("freq = " + freq);
+        
+        System.out.println("");
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
@@ -63,7 +70,9 @@ public class TestCase {
 	    System.out.println(">0123 "+value);
 	    myObject.setTarget("00".getBytes());
 	    value = myObject.estimation();
-	    System.out.println(">00 "+value);
+        System.out.println(">00 "+value);
+        myObject.setTarget("33".getBytes());
+        value = myObject.estimation();
         System.out.println(">33 "+value);
 	}
 	catch(Exception e) {
