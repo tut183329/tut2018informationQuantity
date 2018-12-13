@@ -42,12 +42,49 @@ public class TestCase {
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
 	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
         
+        //TARGETの長さが0
+        System.out.println("\n<TARGET's length is zero → return -1?>");
         FrequencerInterface  myObject_2;
-        System.out.println("\nTARGET is not set > -1 ?");
-        freq = myObject.frequency();
-        System.out.println("freq = " + freq);
+        int freq_2;
+        myObject_2 = new s4.B183329.Frequencer();
+        myObject_2.setSpace("Hi Ho Hi Ho".getBytes());
+        myObject_2.setTarget("".getBytes());
+        freq_2 = myObject_2.frequency();
+        System.out.print("\"\" in \"Hi Ho Hi Ho\" appears "+freq_2+" times. ");
+        if(-1 == freq_2) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+ 
+        //TARGETがsetされていない
+        System.out.println("\n<TARGET is not set → return -1?>");
+        FrequencerInterface  myObject_3;
+        int freq_3;
+        myObject_3 = new s4.B183329.Frequencer();
+        myObject_3.setSpace("Hi Ho Hi Ho".getBytes());
+        freq_3 = myObject_3.frequency();
+        System.out.print("      in \"Hi Ho Hi Ho\" appears "+freq_3+" times. ");
+        if(-1 == freq_3) { System.out.println("OK"); } else {System.out.println("WRONG"); }
         
-        System.out.println("");
+        //Spaceの長さが0
+        System.out.println("\n<Space's length is zero → return 0?>");
+        FrequencerInterface  myObject_4;
+        int freq_4;
+        myObject_4 = new s4.B183329.Frequencer();
+        myObject_4.setSpace("".getBytes());
+        myObject_4.setTarget("H".getBytes());
+        freq_4 = myObject_4.frequency();
+        System.out.print("\"H\" in \"\" appears "+freq_4+" times. ");
+        if(0 == freq_4) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+        
+        //Spaceがsetされていない
+        System.out.println("\n<Space is not set → return 0?>");
+        FrequencerInterface  myObject_5;
+        int freq_5;
+        myObject_5 = new s4.B183329.Frequencer();
+        myObject_5.setSpace("".getBytes());
+        myObject_5.setTarget("H".getBytes());
+        freq_5 = myObject_5.frequency();
+        System.out.print("\"H\" in    appears "+freq_5+" times. ");
+        if(0 == freq_5) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
