@@ -52,8 +52,10 @@ public class TestCase {
         freq_2 = myObject_2.frequency();
         System.out.print("\"\" in \"Hi Ho Hi Ho\" appears "+freq_2+" times. ");
         if(-1 == freq_2) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+        // ->できていない
  
         //TARGETがsetされていない
+        /*
         System.out.println("\n<TARGET is not set → return -1?>");
         FrequencerInterface  myObject_3;
         int freq_3;
@@ -62,6 +64,8 @@ public class TestCase {
         freq_3 = myObject_3.frequency();
         System.out.print("      in \"Hi Ho Hi Ho\" appears "+freq_3+" times. ");
         if(-1 == freq_3) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+        */
+        // ->できていない
         
         //Spaceの長さが0
         System.out.println("\n<Space's length is zero → return 0?>");
@@ -73,18 +77,34 @@ public class TestCase {
         freq_4 = myObject_4.frequency();
         System.out.print("\"H\" in \"\" appears "+freq_4+" times. ");
         if(0 == freq_4) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+        // ->OK
         
         //Spaceがsetされていない
+        /*
         System.out.println("\n<Space is not set → return 0?>");
         FrequencerInterface  myObject_5;
         int freq_5;
         myObject_5 = new s4.B183329.Frequencer();
-        myObject_5.setSpace("".getBytes());
         myObject_5.setTarget("H".getBytes());
         freq_5 = myObject_5.frequency();
         System.out.print("\"H\" in    appears "+freq_5+" times. ");
         if(0 == freq_5) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-
+         */
+        // ->できていない
+        
+        //subByteFrequencyが正しく動作するか
+        System.out.println("\n<subByteFrequency is right?>");
+        FrequencerInterface  myObject_6;
+        int freq_6;
+        myObject_6 = new s4.B183329.Frequencer();
+        myObject_6.setSpace("Hi Ho Hi Ho".getBytes());
+        myObject_6.setTarget("H".getBytes());
+        freq_6 = myObject_6.subByteFrequency(2, 7);
+        System.out.print("\"\" in \" Ho Hi\" appears "+freq_6+" times. ");
+        if(2 == freq_6) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+        // ->できていない
+        
+        System.out.println("");
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");

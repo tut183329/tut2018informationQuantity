@@ -59,3 +59,8 @@ public class Frequencer implements FrequencerInterface{
     }
 }	    
 	    
+/*
+ 39 引数が違うlength->end
+ 22,23 targetとspaceがsetされていない、つまりnullのとき-1,0を返さない
+ 41 subByteFrequencyが仕様を全く満たしていない
+*/
