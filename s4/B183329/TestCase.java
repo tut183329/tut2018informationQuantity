@@ -100,9 +100,19 @@ public class TestCase {
         myObject_6.setSpace("Hi Ho Hi Ho".getBytes());
         myObject_6.setTarget("H".getBytes());
         freq_6 = myObject_6.subByteFrequency(2, 7);
-        System.out.print("\"\" in \" Ho Hi\" appears "+freq_6+" times. ");
+        System.out.print("\"\" in \" Ho H\" appears "+freq_6+" times. ");
         if(2 == freq_6) { System.out.println("OK"); } else {System.out.println("WRONG"); }
         // ->できていない
+        
+        //subByteFrequencyにおいてstartとendの値がおかしいときにどうなるか
+        System.out.println("\n<subByteFrequency is right?>");
+        FrequencerInterface  myObject_7;
+        int freq_7;
+        myObject_7 = new s4.B183329.Frequencer();
+        myObject_7.setSpace("Hi Ho Hi Ho".getBytes());
+        myObject_7.setTarget("H".getBytes());
+        freq_7 = myObject_7.subByteFrequency(-2, -7);
+        System.out.print("\"\" in \" Ho H\" appears "+freq_7+" times. ");
         
         System.out.println("");
 	}
