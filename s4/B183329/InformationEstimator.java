@@ -41,46 +41,47 @@ public class InformationEstimator implements InformationEstimatorInterface{
     }
 
     public double estimation(){
-	boolean [] partition = new boolean[myTarget.length+1];
-	int np;
-	np = 1<<(myTarget.length-1);
-	// System.out.println("np="+np+" length="+myTarget.length);
-	double value = Double.MAX_VALUE; // value = mininimum of each "value1".
-
-	for(int p=0; p<np; p++) { // There are 2^(n-1) kinds of partitions.
-	    // binary representation of p forms partition.
-	    // for partition {"ab" "cde" "fg"}
-	    // a b c d e f g   : myTarget
-	    // T F T F F T F T : partition:
-	    partition[0] = true; // I know that this is not needed, but..
-	    for(int i=0; i<myTarget.length -1;i++) {
-		partition[i+1] = (0 !=((1<<i) & p));
-	    }
-	    partition[myTarget.length] = true;
-
-	    // Compute Information Quantity for the partition, in "value1"
-	    // value1 = IQ(#"ab")+IQ(#"cde")+IQ(#"fg") for the above example
-            double value1 = (double) 0.0;
-	    int end = 0;;
-	    int start = end;
-	    while(start<myTarget.length) {
-		// System.out.write(myTarget[end]);
-		end++;;
-		while(partition[end] == false) { 
-		    // System.out.write(myTarget[end]);
-		    end++;
-		}
-		// System.out.print("("+start+","+end+")");
-		myFrequencer.setTarget(subBytes(myTarget, start, end));
-		value1 = value1 + iq(myFrequencer.frequency());
-		start = end;
-	    }
-	    // System.out.println(" "+ value1);
-
-	    // Get the minimal value in "value"
-	    if(value1 < value) value = value1;
-	}
-	return value;
+        double IQ[] = new double[mySpace.length+1];
+        double f[] = new double[mySpace.length+1]; //再帰定義に使うf
+        double min_can[] = new double[mySpace.length+1]; //minの候補
+        double min = Double.MAX_VALUE;
+        //IQ[N]は、先頭からN文字目までの情報量
+        //そのため、IQ[0]は使用しない
+        IQ[0] = -1;
+        
+        myFrequencer.setTarget(subBytes(myTarget, 0, 1));
+        IQ[1] = iq(myFrequencer.frequency());
+        
+        //IQ[N+1]を求めるためのループ
+        for(int i=2;i<mySpace.length+1;i++){
+            //partition
+            for(int j=0;j<i-1;j++){
+                
+                
+                //myFrequencer.setTarget(subBytes(myTarget, i-j-1, i));
+                
+                
+                f[j] = iq(myFrequencer.subByteFrequency(i-j-1, i));
+                min_can[j] = IQ[i-j-1] + f[j];
+            }
+            
+            //minを探索
+            for(int k=0;k<i-1;k++){
+                if(min > min_can[k]){
+                    min = min_can[k];
+                }
+            }
+            
+            
+            //myFrequencer.setTarget(subBytes(myTarget, 0, i));
+            
+            
+            //if(min > iq(myFrequencer.frequency())){
+            //    min = iq(myFrequencer.frequency());
+            //}
+        }
+        
+        return IQ[mySpace.length+1];
     }
 
     public static void main(String[] args) {

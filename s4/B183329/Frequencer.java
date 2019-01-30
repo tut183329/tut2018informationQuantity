@@ -160,7 +160,7 @@ public class Frequencer implements FrequencerInterface{
     for(int i=0;i<mySpace.length;i++){
       //文字が一致
       if(targetCompare(i,start,end)==0){
-        System.out.println("subByteStartIndex:"+i);
+        //System.out.println("subByteStartIndex:"+i);
         return i;
       }
     }
@@ -179,7 +179,7 @@ public class Frequencer implements FrequencerInterface{
   for(int i=mySpace.length-1;i>=0;i--){
     //文字が一致
     if(targetCompare(i,start,end)==0){
-      System.out.println("subByteEndIndex:"+(i+1));
+      //System.out.println("subByteEndIndex:"+(i+1));
       return i+1;
     }
   }
@@ -223,7 +223,7 @@ public class Frequencer implements FrequencerInterface{
     	try {
     	    frequencerObject = new Frequencer();
     	    frequencerObject.setSpace("Hi Ho Hi Ho".getBytes()); //入力
-    	    frequencerObject.printSuffixArray(); // you may use this line for DEBUG
+    	    //frequencerObject.printSuffixArray(); // you may use this line for DEBUG
     	    /* Example from "Hi Ho Hi Ho"
     	       0: Hi Ho
     	       1: Ho
@@ -243,6 +243,7 @@ public class Frequencer implements FrequencerInterface{
           // ****  Please write code to check subByteStartIndex, and subByteEndIndex
           int end = frequencerObject.myTarget.length;
           //デバッグ用
+            /*
            System.out.println("0:"+frequencerObject.targetCompare(0,0,end));
            System.out.println("1:"+frequencerObject.targetCompare(1,0,end));
            System.out.println("2:"+frequencerObject.targetCompare(2,0,end));
@@ -254,10 +255,13 @@ public class Frequencer implements FrequencerInterface{
            System.out.println("8:"+frequencerObject.targetCompare(8,0,end));
            System.out.println("9:"+frequencerObject.targetCompare(9,0,end));
            System.out.println("10:"+frequencerObject.targetCompare(10,0,end));
+             */
     	  ///////////////////////////////////////////////////////////////////////////////
+            /*
     	    int result = frequencerObject.frequency();
     	    System.out.print("Freq = "+ result+" ");
     	    if(4 == result) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+             */
     	}
     	catch(Exception e) {
     	    System.out.println("STOP");
