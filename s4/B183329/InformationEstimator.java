@@ -41,26 +41,24 @@ public class InformationEstimator implements InformationEstimatorInterface{
     }
 
     public double estimation(){
-        double IQ[] = new double[mySpace.length+1];
-        double f[] = new double[mySpace.length+1]; //再帰定義に使うf
-        double min_can[] = new double[mySpace.length+1]; //minの候補
-        double min = Double.MAX_VALUE;
-        //IQ[N]は、先頭からN文字目までの情報量
-        //そのため、IQ[0]は使用しない
+        int i=0;
+        double IQ[] = new double[myTarget.length+1]; //IQ[N]は、先頭からN文字目までの情報量
+        double f[] = new double[myTarget.length-1]; //再帰定義に使うf
+        double min_can[] = new double[myTarget.length-1]; //minの候補
+        double min = Double.MAX_VALUE; //情報量の最小値
+        double origin = -1; //分割しないときの情報量
+        //(IQ[N]=N文字目までの情報量)とするため、IQ[0]は使用しない
         IQ[0] = -1;
-        
-        myFrequencer.setTarget(subBytes(myTarget, 0, 1));
-        IQ[1] = iq(myFrequencer.frequency());
+
+        //IQ[1]のときは無分割
+        myFrequencer.setTarget(myTarget);
+        IQ[1] = iq(myFrequencer.subByteFrequency(0,1));
         
         //IQ[N+1]を求めるためのループ
-        for(int i=2;i<mySpace.length+1;i++){
+        for(i=2;i<myTarget.length+1;i++){
+            min = Double.MAX_VALUE;
             //partition
             for(int j=0;j<i-1;j++){
-                
-                
-                //myFrequencer.setTarget(subBytes(myTarget, i-j-1, i));
-                
-                
                 f[j] = iq(myFrequencer.subByteFrequency(i-j-1, i));
                 min_can[j] = IQ[i-j-1] + f[j];
             }
@@ -71,17 +69,19 @@ public class InformationEstimator implements InformationEstimatorInterface{
                     min = min_can[k];
                 }
             }
-            
-            
-            //myFrequencer.setTarget(subBytes(myTarget, 0, i));
-            
-            
-            //if(min > iq(myFrequencer.frequency())){
-            //    min = iq(myFrequencer.frequency());
-            //}
+
+            //無分割のときの情報量を計算
+            origin = iq(myFrequencer.subByteFrequency(0, i));
+            if(min > origin){
+                min = origin;
+            }
+
+            //IQ[i]は情報量が最小になるときの分割
+            IQ[i] = min;
         }
-        
-        return IQ[mySpace.length+1];
+
+        //Targetの情報量を返す
+        return IQ[myTarget.length];
     }
 
     public static void main(String[] args) {
