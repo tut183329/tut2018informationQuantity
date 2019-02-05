@@ -19,6 +19,8 @@ public class InformationEstimator implements InformationEstimatorInterface{
     // Code to tet, *warning: This code condtains intentional problem*
     byte [] myTarget; // data to compute its information quantity
     byte [] mySpace;  // Sample space to compute the probability
+    boolean targetReady = false;
+    boolean spaceReady = false;
     FrequencerInterface myFrequencer;  // Object for counting frequency
 
     byte [] subBytes(byte [] x, int start, int end) {
@@ -31,16 +33,27 @@ public class InformationEstimator implements InformationEstimatorInterface{
 
     // IQ: information quantity for a count,  -log2(count/sizeof(space))
     double iq(int freq) {
-	return  - Math.log10((double) freq / (double) mySpace.length)/ Math.log10((double) 2.0);
+        if(freq == 0){
+            return Double.MAX_VALUE;
+        }else{
+            return  - Math.log10((double) freq / (double) mySpace.length)/ Math.log10((double) 2.0);
+        }
     }
 
-    public void setTarget(byte [] target) { myTarget = target;}
+    public void setTarget(byte [] target) {
+        myTarget = target;
+        if(myTarget.length>0) targetReady = true;
+    }
     public void setSpace(byte []space) { 
-	myFrequencer = new Frequencer();
-	mySpace = space; myFrequencer.setSpace(space); 
+        myFrequencer = new Frequencer();
+        mySpace = space; myFrequencer.setSpace(space);
+        if(mySpace.length>0) spaceReady = true;
     }
 
     public double estimation(){
+        if(targetReady == false) return 0;
+        if(spaceReady == false) return Double.MAX_VALUE;
+        
         int i=0;
         double IQ[] = new double[myTarget.length+1]; //IQ[N]は、先頭からN文字目までの情報量
         double f[] = new double[myTarget.length-1]; //再帰定義に使うf

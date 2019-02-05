@@ -55,26 +55,24 @@ public class Frequencer implements FrequencerInterface{
     	// "Hi"     <  "Ho"       ; if head is same, compare the next element
     	// "Ho"     <  "Ho "      ; if the prefix is identical, longer string is big
     	//
-      ///////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////////////////////
       if(i>j){
-        int temp =i;
-        i=j;
-        j=i;
+        int temp = i;
+        i = j;
+        j = i;
       }
 
       for(int k=0;k<suffixArray.length-j;k++){
-
-        if(mySpace[i+k]>mySpace[j+k]){
+        if(mySpace[i+k] > mySpace[j+k]){
           return 1;
-        }
-        else if(mySpace[i+k]<mySpace[j+k]){
+        }else if(mySpace[i+k] < mySpace[j+k]){
           return -1;
         }
       }
       if(i<j){
         return 1;
       }
-      ///////////////////////////////////////////////////
+      //////////////////////////////////////////////////////////////////////////////////////
       return 0;
     }
 
@@ -90,20 +88,17 @@ public class Frequencer implements FrequencerInterface{
     	//
     	//
     	// ****  Please write code here... ***
+    //////////////////////////////////////////////////////////////////////////////////////
       for(int i=space.length-1;i>0;i--){
-
         for(int j=0;j<i;j++){
           if(suffixCompare(suffixArray[j],suffixArray[j+1])==1){
-
             int temp = suffixArray[j];
             suffixArray[j] = suffixArray[j+1];
             suffixArray[j+1] = temp;
           }
-
         }
-
       }
-    	//
+    //////////////////////////////////////////////////////////////////////////////////////
     }
 
     private int targetCompare(int i, int j, int end) {
@@ -126,27 +121,23 @@ public class Frequencer implements FrequencerInterface{
 	// "Ho"      =     "H"     : "H" is in the head of suffix "Ho"
 	//
 	// ****  Please write code here... ***
-  /////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
   // int target_count = 0; //targetの文字数
     for(int k=0;k<end-j;k++){
     if(suffixArray[i]+k > mySpace.length-1){
-      System.out.println(suffixArray[i]+k);
       return -2;
     }
-
     if(mySpace[suffixArray[i]+k]>myTarget[j+k]){
       return 1;
-    }
-    else if(mySpace[suffixArray[i]+k]<myTarget[j+k]){
+    }else if(mySpace[suffixArray[i]+k]<myTarget[j+k]){
       return -1;
-    }
-    else{
+    }else{
       if(k+1 == end-j){
         return 0;
       }
     }
   }
-	/////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
 	return 1; // This line should be modified.
     }
 
@@ -156,16 +147,15 @@ public class Frequencer implements FrequencerInterface{
   	// For "Ho", it will return 5  for "Hi Ho Hi Ho".
   	// For "Ho ", it will return 6 for "Hi Ho Hi Ho".
   	//
-    /////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
     for(int i=0;i<mySpace.length;i++){
       //文字が一致
-      if(targetCompare(i,start,end)==0){
-        //System.out.println("subByteStartIndex:"+i);
+      if(targetCompare(i,start,end) == 0){
         return i;
       }
     }
     return (-1);  //エラー
-    /////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
 
   }
 
@@ -175,16 +165,15 @@ public class Frequencer implements FrequencerInterface{
 	// For "Ho", it will return 7  for "Hi Ho Hi Ho".
 	// For "Ho ", it will return 7 for "Hi Ho Hi Ho".
 	//
-  /////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////
   for(int i=mySpace.length-1;i>=0;i--){
     //文字が一致
     if(targetCompare(i,start,end)==0){
-      //System.out.println("subByteEndIndex:"+(i+1));
       return i+1;
     }
   }
   return (-1);  //エラー
-  /////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////
 	//
 	// return suffixArray.length; // This line should be modified.
     }
