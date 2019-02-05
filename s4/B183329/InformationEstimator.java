@@ -51,6 +51,7 @@ public class InformationEstimator implements InformationEstimatorInterface{
     }
 
     public double estimation(){
+        //Targetとspaceの異常を検出
         if(targetReady == false) return 0;
         if(spaceReady == false) return Double.MAX_VALUE;
         
@@ -63,36 +64,27 @@ public class InformationEstimator implements InformationEstimatorInterface{
         //(IQ[N]=N文字目までの情報量)とするため、IQ[0]は使用しない
         IQ[0] = -1;
 
-        //IQ[1]のときは無分割
+        //Targetをセット(以降はsubByteFrequencyで部分文字列を探索する)
         myFrequencer.setTarget(myTarget);
+        //IQ[1]のときは無分割
         IQ[1] = iq(myFrequencer.subByteFrequency(0,1));
         
         //IQ[N+1]を求めるためのループ
         for(i=2;i<myTarget.length+1;i++){
-            min = Double.MAX_VALUE;
-            //partition
+            //無分割のときの情報量をとりあえず最小値とする
+            min = iq(myFrequencer.subByteFrequency(0, i));
+            //分割のパターンいろいろ
             for(int j=0;j<i-1;j++){
                 f[j] = iq(myFrequencer.subByteFrequency(i-j-1, i));
                 min_can[j] = IQ[i-j-1] + f[j];
-            }
-            
-            //minを探索
-            for(int k=0;k<i-1;k++){
-                if(min > min_can[k]){
-                    min = min_can[k];
+                //情報量の最小値を更新
+                if(min > min_can[j]){
+                    min = min_can[j];
                 }
             }
-
-            //無分割のときの情報量を計算
-            origin = iq(myFrequencer.subByteFrequency(0, i));
-            if(min > origin){
-                min = origin;
-            }
-
-            //IQ[i]は情報量が最小になるときの分割
+            //情報量が最小になるときの分割はIQ[i]
             IQ[i] = min;
         }
-
         //Targetの情報量を返す
         return IQ[myTarget.length];
     }

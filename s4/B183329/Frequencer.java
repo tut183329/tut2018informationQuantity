@@ -57,7 +57,6 @@ public class Frequencer implements FrequencerInterface{
     	//
       /////////////////////////////////////////////////////////////////////////////////////
       if(i>j){
-        int temp = i;
         i = j;
         j = i;
       }
@@ -69,6 +68,7 @@ public class Frequencer implements FrequencerInterface{
           return -1;
         }
       }
+      //比較した文字列が全て同じ場合、短い方のsuffixesが先に来る
       if(i<j){
         return 1;
       }
@@ -122,8 +122,7 @@ public class Frequencer implements FrequencerInterface{
 	//
 	// ****  Please write code here... ***
   //////////////////////////////////////////////////////////////////////////////////////
-  // int target_count = 0; //targetの文字数
-    for(int k=0;k<end-j;k++){
+  for(int k=0;k<end-j;k++){
     if(suffixArray[i]+k > mySpace.length-1){
       return -2;
     }
@@ -132,6 +131,7 @@ public class Frequencer implements FrequencerInterface{
     }else if(mySpace[suffixArray[i]+k]<myTarget[j+k]){
       return -1;
     }else{
+      //Targetを見つけられた場合それ以降の文字列に関わらず0を返す
       if(k+1 == end-j){
         return 0;
       }
@@ -233,7 +233,7 @@ public class Frequencer implements FrequencerInterface{
           int end = frequencerObject.myTarget.length;
           //デバッグ用
             /*
-           System.out.println("0:"+frequencerObject.targetCompare(0,0,end));
+           System.out.println("\n0:"+frequencerObject.targetCompare(0,0,end));
            System.out.println("1:"+frequencerObject.targetCompare(1,0,end));
            System.out.println("2:"+frequencerObject.targetCompare(2,0,end));
            System.out.println("3:"+frequencerObject.targetCompare(3,0,end));
@@ -244,7 +244,7 @@ public class Frequencer implements FrequencerInterface{
            System.out.println("8:"+frequencerObject.targetCompare(8,0,end));
            System.out.println("9:"+frequencerObject.targetCompare(9,0,end));
            System.out.println("10:"+frequencerObject.targetCompare(10,0,end));
-             */
+            */
     	  ///////////////////////////////////////////////////////////////////////////////
             /*
     	    int result = frequencerObject.frequency();

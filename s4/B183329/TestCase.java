@@ -34,15 +34,13 @@ public class TestCase {
 	try {
 	    FrequencerInterface  myObject;
 	    int freq;
-	    System.out.println("\nchecking s4.B183329.Frequencer");
+	    System.out.println("\n<<<checking s4.B183329.Frequencer>>>\n");
 	    myObject = new s4.B183329.Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
 	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-        
-        System.out.println("<<<frequency()>>>\n");
         
         //TARGETの長さが0
         System.out.println("<TARGET's length is zero → return -1?>");
@@ -119,7 +117,7 @@ public class TestCase {
 	try {
 	    InformationEstimatorInterface myObject;
 	    double value;
-	    System.out.println("checking s4.B183329.InformationEstimator");
+	    System.out.println("\n\n<<<checking s4.B183329.InformationEstimator>>>\n");
 	    myObject = new s4.B183329.InformationEstimator();
 	    myObject.setSpace("3210321001230123".getBytes());
 	    myObject.setTarget("0".getBytes());
@@ -134,8 +132,6 @@ public class TestCase {
 	    myObject.setTarget("00".getBytes());
 	    value = myObject.estimation();
         System.out.println(">00 "+value);
-        
-         System.out.println("\n\n<<<estimation()>>>\n");
         
         //target is not set
         InformationEstimatorInterface myObject_2;
